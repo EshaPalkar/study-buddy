@@ -30,6 +30,7 @@ export default function HomeScreen({ navigation }: Props) {
   const [profile, setProfile] = useState<ProfileModel>(null);
 
   const currentUserId = firebase.auth().currentUser!.uid;
+  const [groups, setGroups] = useState(firebase.firestore().collection("userprofile").doc(currentUserId).data().groups);
 
   useEffect(() => {
     const ref = firebase.firestore().collection("userprofile").doc(currentUserId);
@@ -88,6 +89,16 @@ export default function HomeScreen({ navigation }: Props) {
         </SafeAreaView>
     )
   }
+
+  const renderItem = (accessCode : string) => {
+    return (
+      <View>
+        <Text>{accessCode}</Text>
+        <Text>{firebase.firestore().collection(accessCode).doc(accessCode).data().zoom}</Text>
+        
+      </View>
+    );
+  }
   
   return (
     <>
@@ -110,6 +121,9 @@ export default function HomeScreen({ navigation }: Props) {
         <View style={styles.button}>
           <Button onPress = {() => navigation.navigate("JoinGroupScreen") }> Join Group </Button>
         </View>
+        <FlatList data = {groups} renderItem = {renderItem}>
+
+        </FlatList>
       </SafeAreaView>
     </>
   );
