@@ -10,4 +10,4 @@
 
 ![Home1](/public/assets/images/readme/home2.jpg)
 
-![Profile](/public/assets/images/readme/profile.jpg)
+
